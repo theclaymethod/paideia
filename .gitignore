@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.venv/
+venv/
+# generated conftest copies (the runner regenerates them from the template)
+**/exercises/*/conftest.py

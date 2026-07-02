@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "notes": "Managed by the runtime tutor skill. status: locked|available|in_progress|done. gate_runs: append-only records of actual check_gates.py runs. skip_debt: chunks skipped with --skip.",
+  "chunks": {
+    "1.1": {
+      "status": "available",
+      "gate_runs": [],
+      "skip_debt": []
+    },
+    "1.2": {
+      "status": "locked",
+      "gate_runs": [],
+      "skip_debt": []
+    },
+    "1.3": {
+      "status": "locked",
+      "gate_runs": [],
+      "skip_debt": []
+    }
+  }
+}

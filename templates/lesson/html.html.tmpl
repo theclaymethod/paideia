@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  html briefing template — chunk {{CHUNK_ID}}: {{CHUNK_TITLE}}.
+  Self-contained: inline CSS only, NO external assets and NO JavaScript.
+  Briefings are usually gate: null (medium: html) with beats [HOOK, RAMP] or
+  [HOOK, RAMP, LOCK_IN]. Keep it to one screen-width column; make the central
+  visual (a table or a side-by-side <pre> comparison) carry the RAMP.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{CHUNK_ID}} — {{CHUNK_TITLE}}</title>
+<style>
+  :root { --ink:#1c2230; --mut:#5b6472; --line:#dfe3ea; --accent:#2b6cb0;
+          --codebg:#0f1626; --codefg:#e6edf3; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         color:var(--ink); background:#f7f8fb; }
+  main { max-width:860px; margin:0 auto; padding:38px 22px 90px; }
+  h1 { font-size:29px; line-height:1.2; margin:0 0 4px; }
+  h2 { font-size:21px; margin:40px 0 10px; padding-top:14px; border-top:2px solid var(--line); }
+  h3 { font-size:16px; margin:22px 0 6px; color:var(--accent); }
+  p { margin:10px 0; }
+  .lede { color:var(--mut); font-size:17px; }
+  .beat { display:inline-block; font:600 11px/1 -apple-system,sans-serif; letter-spacing:.09em;
+          text-transform:uppercase; color:#fff; background:var(--accent); padding:5px 9px; border-radius:5px; }
+  code { font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-size:13.5px;
+         background:#eef1f6; padding:1px 5px; border-radius:4px; }
+  pre { background:var(--codebg); color:var(--codefg); padding:14px 16px; border-radius:9px;
+        overflow-x:auto; font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+        font-size:12.8px; line-height:1.5; }
+  pre .c { color:#8b98b8; }
+  .cols { display:flex; gap:14px; flex-wrap:wrap; }
+  .cols > div { flex:1 1 340px; }
+  .cols h3 { margin-top:0; }
+  table { border-collapse:collapse; width:100%; margin:14px 0; font-size:14.5px; }
+  th,td { border:1px solid var(--line); padding:7px 10px; text-align:left; vertical-align:top; }
+  th { background:#eef1f6; }
+  .note { border-left:4px solid var(--accent); background:#eef4fb; padding:10px 14px; margin:14px 0; border-radius:0 7px 7px 0; }
+  footer { margin-top:44px; padding-top:14px; border-top:1px solid var(--line); color:var(--mut); font-size:13.5px; }
+</style>
+</head>
+<body>
+<main>
+
+<p><span class="beat">Beat · HOOK</span></p>
+<h1>{{CHUNK_ID}} — {{CHUNK_TITLE}}</h1>
+<p class="lede">Open with the vivid framing: what is this briefing going to make
+concrete, and why should the learner care right now? One paragraph.</p>
+
+<h2><span class="beat">Beat · RAMP</span> &nbsp;The central idea</h2>
+<p>Explain the mechanism. Lead with the <strong>central visual</strong> — either a
+comparison table or a side-by-side code panel:</p>
+
+<div class="cols">
+<div>
+<h3>Left / before</h3>
+<pre><span class="c"># the naive or prior version</span>
+...</pre>
+</div>
+<div>
+<h3>Right / after</h3>
+<pre><span class="c"># the real / production version</span>
+...</pre>
+</div>
+</div>
+
+<div class="note">
+<strong>The one thing to remember.</strong> State the single load-bearing takeaway
+in one or two sentences.
+</div>
+
+<h2><span class="beat">Beat · LOCK-IN</span> &nbsp;Socratic check</h2>
+<p>The tutor agent will ask you these before unlocking what comes next:</p>
+<ol>
+<li>A question that probes <em>why</em> the mechanism is shaped this way.</li>
+<li>A question that connects this briefing to a downstream chunk or tradeoff.</li>
+<li>A question about a failure mode or edge case.</li>
+</ol>
+
+<footer>
+Read-only briefing · replace this footer with the source/reference this chunk
+points at, and what it unlocks.
+</footer>
+
+</main>
+</body>
+</html>

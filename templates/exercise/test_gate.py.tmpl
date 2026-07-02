@@ -1,0 +1,57 @@
+"""Property gate — chunk {{CHUNK_ID}}: {{CHUNK_TITLE}}.  Bare `import impl`.
+
+Two-sided design (load-bearing):
+  * This file MUST FAIL against exercises/{{CHUNK_ID}}/impl.py (the holes).
+  * This file MUST PASS against solutions/{{CHUNK_ID}}/impl.py (the reference).
+check_gates.py enforces both. If it passes against the starter, the gate is
+gameable (a DEFECT) — assert real *properties*, not a single memorized value.
+
+NOVEL-PROBE discipline
+----------------------
+Generate probe inputs at TEST TIME from a seeded RNG — never commit a fixture of
+input/output pairs a learner could hardcode against. Seed the RNG so the run is
+reproducible (check_gates.py also sets PYTHONHASHSEED=0). Assert properties that
+only a correct implementation can satisfy across many random inputs:
+  * a known analytic anchor (one closed-form value you can compute by hand);
+  * an invariance (permutation / translation / scale) the true answer must obey;
+  * agreement between two independent routes to the same quantity;
+  * a degenerate limit that collapses to a simpler known form.
+
+PROVENANCE note (for curve / trajectory / time-series gates)
+------------------------------------------------------------
+If the learner returns a curve or trajectory, don't just check endpoints —
+assert the *provenance*: that intermediate points are consistent with the
+claimed process (monotonicity, a recurrence, conservation, or agreement with a
+reference generator on novel seeds), so a lookup-table fake can't pass.
+"""
+from __future__ import annotations
+
+import numpy as np
+
+import impl
+
+SEED = 20260101
+
+
+def test_analytic_anchor():
+    # One value you can verify by hand — the cheapest guard against a broken impl.
+    # Replace with the real anchor for this chunk.
+    assert abs(impl.solve(0) - 0.0) < 1e-9
+
+
+def test_property_holds_on_novel_inputs():
+    rng = np.random.default_rng(SEED)
+    for _ in range(50):
+        x = float(rng.uniform(-5, 5))
+        out = impl.solve(x)
+        # Replace with the real invariant(s). Example placeholders:
+        assert out >= 0.0                       # e.g. non-negativity
+        assert np.isfinite(out)                 # no NaN / inf
+
+
+def test_invariance_or_second_route():
+    rng = np.random.default_rng(SEED + 1)
+    for _ in range(30):
+        x = float(rng.uniform(-5, 5))
+        # Example: an invariance the true answer must obey (edit to fit the chunk).
+        assert abs(impl.solve(x) - impl.solve(x)) < 1e-12

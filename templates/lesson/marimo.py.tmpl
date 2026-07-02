@@ -1,0 +1,148 @@
+"""marimo lesson template — chunk {{CHUNK_ID}}: {{CHUNK_TITLE}}.
+
+Author a 4-beat marimo lesson: HOOK -> RAMP (with a live mo.ui widget) ->
+DO (the learner fills holes in exercises/{{CHUNK_ID}}/impl.py; this notebook
+imports their impl and reflects it back) -> LOCK_IN (Socratic questions).
+
+Run it while authoring:  marimo edit --watch <course>/lessons/{{CHUNK_ID}}.py
+The path to exercises/ is derived from this file's location, so the course dir
+may be named anything.
+"""
+import marimo
+
+app = marimo.App(width="medium")
+
+
+@app.cell
+def _():
+    import marimo as mo
+    return (mo,)
+
+
+@app.cell
+def _():
+    import importlib.util
+    from pathlib import Path
+
+    # This lesson lives at <course>/lessons/{{CHUNK_ID}}.py, so parents[1] is the
+    # course dir — no hardcoded course-dir name.
+    COURSE_DIR = Path(__file__).resolve().parents[1]
+    EX_DIR = COURSE_DIR / "exercises" / "{{CHUNK_ID}}"
+
+    def load_learner_impl():
+        """Import the learner's exercises/{{CHUNK_ID}}/impl.py, or None if absent/broken."""
+        path = EX_DIR / "impl.py"
+        if not path.is_file():
+            return None
+        spec = importlib.util.spec_from_file_location("learner_impl_{{CHUNK_ID}}", path)
+        mod = importlib.util.module_from_spec(spec)
+        try:
+            spec.loader.exec_module(mod)
+        except Exception:
+            return None
+        return mod
+
+    return (load_learner_impl,)
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+        # {{CHUNK_ID}} — {{CHUNK_TITLE}}
+
+        ## HOOK · <one vivid, concrete analogy>
+
+        Open with an everyday image that makes the core idea click before any
+        formalism. Two–four sentences. No jargon yet.
+        """
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+        ## RAMP · <the real mechanism>
+
+        Now the real thing: definitions, the formula (LaTeX with `$$ ... $$`),
+        the invariants that matter. Tie each formal piece back to the HOOK image.
+        """
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    # RAMP widget stub — an interactive control the learner can play with to build
+    # intuition. Replace with the parameters that matter for this chunk.
+    param_w = mo.ui.slider(-4.0, 4.0, value=0.0, step=0.25, label="a parameter to explore")
+    param_w
+    return (param_w,)
+
+
+@app.cell
+def _(mo, param_w):
+    # React to the widget: recompute and show something as the learner drags it.
+    _v = float(param_w.value)
+    mo.md(f"- parameter = **{_v:.2f}** → *(show the resulting quantity / picture here)*")
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+        ## DO · Fill the holes
+
+        Edit **`<course>/exercises/{{CHUNK_ID}}/impl.py`** to fill the
+        `NotImplementedError` / `TODO` holes. The panel below imports *your*
+        implementation and reflects it back so you get instant feedback.
+
+        Gate: `python3 <course>/scripts/check_gates.py --chunk {{CHUNK_ID}} --learner`
+        """
+    )
+    return
+
+
+@app.cell
+def _(load_learner_impl, mo):
+    _impl = load_learner_impl()
+    if _impl is None:
+        _view = mo.md("**exercises/{{CHUNK_ID}}/impl.py not found.**")
+    else:
+        try:
+            # TODO: call the learner's function(s) on illustrative inputs and render
+            # the result. Keep this a *reflection*, not the gate — the gate is
+            # check_gates.py. Example shape:
+            #   result = _impl.your_function(example_input)
+            #   _view = mo.md(f"Your output: **{result}**")
+            _view = mo.md("*(wire up a call to the learner's impl here)*")
+        except NotImplementedError:
+            _view = mo.md("### Your impl — TODO not implemented yet")
+        except Exception as exc:  # noqa: BLE001
+            _view = mo.md(f"### Your impl raised `{type(exc).__name__}: {exc}`")
+    _view
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+        ## LOCK-IN · Socratic check
+
+        The tutor agent asks these before unlocking what comes next — answer them
+        in your own words, don't recite:
+
+        1. <a question that probes *why* the mechanism is shaped the way it is>
+        2. <a question that connects this chunk to the next / to a design tradeoff>
+        3. <a question about a failure mode or edge case>
+        """
+    )
+    return
+
+
+if __name__ == "__main__":
+    app.run()

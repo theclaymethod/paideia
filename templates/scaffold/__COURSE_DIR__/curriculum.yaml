@@ -1,0 +1,63 @@
+# {{COURSE_DIR}}/curriculum.yaml — the chunk graph for this paideia tutor.
+#
+# This is a minimal EXAMPLE showing the full schema. Replace these chunks with
+# your own course. Validate after every edit:
+#   python3 {{COURSE_DIR}}/scripts/validate_curriculum.py
+#
+# Schema (one entry per chunk, flat, no prose beyond `title`):
+#   id            "<module_num>.<seq>", e.g. "1.1"; prefix must match `module`.
+#   module        M1..M12.
+#   title         one-line human title.
+#   medium        marimo | html | terminal.
+#   beats         non-empty subset of [HOOK, RAMP, DO, LOCK_IN], no dups.
+#                 briefings are typically [HOOK, RAMP] or [HOOK, RAMP, LOCK_IN].
+#   gate          a check_gates.py command that contains "--chunk <id>", OR
+#                 null (allowed ONLY for medium: html — briefings / reveals).
+#                 add "--operate" in the command for operate-and-inspect chunks.
+#   depends_on    chunk ids that must be done first (DAG, acyclic).
+#   unlocks       chunk ids this one unblocks. Must be cross-consistent:
+#                 b in a.unlocks  <=>  a in b.depends_on.
+#   est_minutes   integer in the 25-45 band.
+#   status        planned | built | reviewed | shipped.
+#                 >= built requires the exercises/solutions/lesson files to exist.
+#   codex_review  null until reviewed; a path string required when shipped.
+
+schema_version: 1
+
+chunks:
+  # ── M1 — example module ────────────────────────────────────────────────────
+  - id: "1.1"
+    module: M1
+    title: "Example gated marimo chunk (replace me)"
+    medium: marimo
+    beats: [HOOK, RAMP, DO, LOCK_IN]
+    gate: "python3 {{COURSE_DIR}}/scripts/check_gates.py --chunk 1.1"
+    depends_on: []
+    unlocks: ["1.2"]
+    est_minutes: 35
+    status: planned
+    codex_review: null
+
+  - id: "1.2"
+    module: M1
+    title: "Example gated terminal chunk (replace me)"
+    medium: terminal
+    beats: [HOOK, RAMP, DO, LOCK_IN]
+    gate: "python3 {{COURSE_DIR}}/scripts/check_gates.py --chunk 1.2"
+    depends_on: ["1.1"]
+    unlocks: ["1.3"]
+    est_minutes: 30
+    status: planned
+    codex_review: null
+
+  - id: "1.3"
+    module: M1
+    title: "Example html briefing, no gate (replace me)"
+    medium: html
+    beats: [HOOK, RAMP, LOCK_IN]
+    gate: null
+    depends_on: ["1.2"]
+    unlocks: []
+    est_minutes: 25
+    status: planned
+    codex_review: null

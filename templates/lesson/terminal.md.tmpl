@@ -1,0 +1,58 @@
+# {{CHUNK_ID}} — {{CHUNK_TITLE}} (terminal)
+
+**Medium:** terminal. The tutor agent walks you through this doc and the
+commands in the shell, step by step. Nothing here runs automatically; every
+command is one you (or the agent) invoke and inspect together.
+
+---
+
+## HOOK · <one vivid, concrete analogy>
+
+Open with an everyday image that makes the core idea click before any
+mechanism. Two–four sentences.
+
+---
+
+## RAMP · <the real mechanism>
+
+Explain what the learner is about to build/operate and why. Show the shape of
+the thing — a short annotated snippet or a diagram in a fenced block:
+
+```
+<the key structure / command / data shape, annotated>
+```
+
+Call out the one detail that is easy to get wrong.
+
+---
+
+## DO · Build the pieces, then run
+
+### 1. Fill the holes — `<course>/exercises/{{CHUNK_ID}}/impl.py`
+
+- `function_a(...)` — <what it must do>.
+- `function_b(...)` — <what it must do>.
+
+Gate:
+
+```bash
+python3 <course>/scripts/check_gates.py --chunk {{CHUNK_ID}} --learner
+```
+
+### 2. Walk / run it in the shell
+
+```bash
+# show the learner the relevant scaffolding, then run the thing
+python3 <course>/exercises/{{CHUNK_ID}}/impl.py   # or whatever the chunk drives
+```
+
+Describe what a correct run looks like so the learner can recognize success,
+and what a common failure looks like.
+
+---
+
+## LOCK-IN · Socratic check
+
+1. A question that probes *why* the mechanism is shaped this way.
+2. A question that connects this chunk to a downstream chunk or tradeoff.
+3. A question about a failure mode or edge case.

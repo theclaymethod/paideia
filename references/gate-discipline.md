@@ -57,6 +57,31 @@ constant. Defend with:
 - **Meaningful properties, not output equality.** Assert invariants (monotonicity, symmetry,
   known limits, analytic anchors) rather than exact expected outputs a learner could reverse-engineer.
 
+## Two leak classes (what adversarial review keeps catching)
+
+Building a real course, an independent adversarial review of every chunk caught the same two leaks
+over and over. The gates themselves were sound; the leaks were in what surrounded them. Budget a
+review pass specifically for these, and do not trust the runner to find them: it only checks
+starter-fails and reference-passes, so a chunk can be "two-sided OK" while still being beatable by
+a *third* implementation that transcribes a rule or table-matches an answer.
+
+- **Hint leak.** The starter's `# HINT`, the lesson, or the resources README states the decision
+  rule, the exact threshold, the formula, or the decision ladder. Then the "problem" is
+  transcription: the learner copies the rule. Discipline: a hint gives the concept, which given
+  tool to reach for, and the required output shape/vocabulary — never the rule. A named threshold
+  may live in code as an *opaque grading tolerance* the gate uses, but the hint must not say "flag
+  when x > THRESHOLD". The learner infers the rule; the gate grades the outcome. This is the single
+  most common finding: authors reliably over-explain in the starter, so review every learner-facing
+  file for it.
+- **Oracle leak.** The adversary generator returns the expected answer alongside the inputs (an
+  `expected_label` field); or a lesson cell imports the gate's generator and prints `(got, want)`;
+  or a lesson tells the learner to put `solutions/<id>` on the path. Each hands over the answer.
+  Discipline: **generators return inputs only**; the gate computes ground truth itself, in a
+  private test helper or by running the reference — never read from the returned data. Lessons
+  never display the expected answer and never reference a `solutions/` path (the post-pass reveal
+  is the runtime skill's job, on the learner's own gate pass). Decouple lesson demos from the gate's
+  adversary module by using a small lesson-local toy.
+
 ## Hermeticity
 
 Gates run offline, deterministic, stdlib/numpy only:

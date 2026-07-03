@@ -50,6 +50,19 @@ one central visual + the explanation + the LOCK_IN questions.
 
 ## What makes a good exercise (the DO beat)
 
+- **A substantive problem, not a syntax drill.** This is the difference between a course that
+  teaches and a leetcode set. The worst exercise is "implement `tpr(counts) = TP/(TP+FN)`": the
+  docstring hands over the formula and the learner transcribes it. The best exercise poses a real
+  problem the subject is actually about, a **decision, diagnosis, design, or red-team**, where a
+  formula is a *tool the learner reaches for*, never the deliverable. "Three judges and a gold set;
+  one is 92% accurate and useless; decide which is safe to ship and defend it" teaches judgment;
+  "compute TP/(TP+FN)" teaches typing. Hand the formula tools already implemented (as given
+  material); make the hole the judgment. The gate then judges the *outcome* (does the learner's
+  decision hold up on fresh adversaries the gate generates at test time), so transcription and
+  hardcoding both fail. Recurring problem shapes: *decide* (which of these is safe / which rung
+  buys the most), *diagnose* (this looks fine but is broken — find how), *design* (build a check
+  that resists this attack), *red-team* (build the thing that games the weak signal, then harden
+  it against yourself).
 - **Holes, not blanks.** The starter `impl.py` has full docstrings and signatures with
   `raise NotImplementedError("TODO: …")` where the learning is. The contract is clear; the
   algorithm is what they supply.

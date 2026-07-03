@@ -60,7 +60,7 @@ one central visual + the explanation + the LOCK_IN questions.
   material); make the hole the judgment. The gate then judges the *outcome* (does the learner's
   decision hold up on fresh adversaries the gate generates at test time), so transcription and
   hardcoding both fail. Recurring problem shapes: *decide* (which of these is safe / which rung
-  buys the most), *diagnose* (this looks fine but is broken — find how), *design* (build a check
+  buys the most), *diagnose* (this looks fine but is broken, find how), *design* (build a check
   that resists this attack), *red-team* (build the thing that games the weak signal, then harden
   it against yourself).
 - **Holes, not blanks.** The starter `impl.py` has full docstrings and signatures with

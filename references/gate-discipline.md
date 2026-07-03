@@ -68,7 +68,7 @@ a *third* implementation that transcribes a rule or table-matches an answer.
 - **Hint leak.** The starter's `# HINT`, the lesson, or the resources README states the decision
   rule, the exact threshold, the formula, or the decision ladder. Then the "problem" is
   transcription: the learner copies the rule. Discipline: a hint gives the concept, which given
-  tool to reach for, and the required output shape/vocabulary — never the rule. A named threshold
+  tool to reach for, and the required output shape/vocabulary, never the rule. A named threshold
   may live in code as an *opaque grading tolerance* the gate uses, but the hint must not say "flag
   when x > THRESHOLD". The learner infers the rule; the gate grades the outcome. This is the single
   most common finding: authors reliably over-explain in the starter, so review every learner-facing
@@ -77,7 +77,7 @@ a *third* implementation that transcribes a rule or table-matches an answer.
   `expected_label` field); or a lesson cell imports the gate's generator and prints `(got, want)`;
   or a lesson tells the learner to put `solutions/<id>` on the path. Each hands over the answer.
   Discipline: **generators return inputs only**; the gate computes ground truth itself, in a
-  private test helper or by running the reference — never read from the returned data. Lessons
+  private test helper or by running the reference, never read from the returned data. Lessons
   never display the expected answer and never reference a `solutions/` path (the post-pass reveal
   is the runtime skill's job, on the learner's own gate pass). Decouple lesson demos from the gate's
   adversary module by using a small lesson-local toy.
